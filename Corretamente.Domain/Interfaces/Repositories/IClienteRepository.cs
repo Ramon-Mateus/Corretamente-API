@@ -9,5 +9,4 @@ public interface IClienteRepository
     Task AddAsync(Cliente cliente);
     Task UpdateAsync(Cliente cliente);
     Task DeleteAsync(int id);
-    Task<bool> ExistsAsync(int id);
 }
