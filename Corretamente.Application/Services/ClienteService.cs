@@ -34,6 +34,17 @@ public class ClienteService : IClienteService
 
     public async Task<ClienteDTO> CreateAsync(CreateClienteDTO clienteDto)
     {
+        if(!string.IsNullOrEmpty(clienteDto.Email))
+        {
+            var existEmailClient = await _clienteRepository.ExistsByEmailAsync(clienteDto.Email);
+            if (existEmailClient)
+                throw new InvalidOperationException("Já existe um cliente com esse e-mail.");
+        }
+
+        var existDocumentoClient = await _clienteRepository.ExistsByDocumentoAsync(clienteDto.Documento);
+        if (existDocumentoClient)
+            throw new InvalidOperationException("Já existe um cliente com esse documento.");
+
         var cliente = _mapper.Map<Cliente>(clienteDto);
         await _clienteRepository.AddAsync(cliente);
         return _mapper.Map<ClienteDTO>(cliente);

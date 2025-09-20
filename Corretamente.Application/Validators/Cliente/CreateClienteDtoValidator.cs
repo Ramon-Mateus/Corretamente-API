@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Corretamente.Application.Validators.Cliente
 {
-    internal class CreateClienteDtoValidator : AbstractValidator<CreateClienteDTO>
+    public class CreateClienteDtoValidator : AbstractValidator<CreateClienteDTO>
     {
         public CreateClienteDtoValidator()
         {

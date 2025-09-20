@@ -9,4 +9,6 @@ public interface IClienteRepository
     Task AddAsync(Cliente cliente);
     Task UpdateAsync(Cliente cliente);
     Task DeleteAsync(int id);
+    Task<bool> ExistsByEmailAsync(string email);
+    Task<bool> ExistsByDocumentoAsync(string doc);
 }

@@ -1,3 +1,4 @@
+using Corretamente.Application.DTOs.Cliente;
 using Corretamente.Domain.Entities;
 using Corretamente.Domain.Interfaces.Repositories;
 using Corretamente.Infrastructure.Contexts;
@@ -44,5 +45,17 @@ public class ClienteRepository : IClienteRepository
             _context.Clientes.Remove(cliente);
             await _context.SaveChangesAsync();
         }
+    }
+
+    public async Task<bool> ExistsByEmailAsync(string email)
+    {
+        var exists = await _context.Clientes.AnyAsync(c => c.Email == email);
+        return exists;
+    }
+
+    public async Task<bool> ExistsByDocumentoAsync(string doc)
+    {
+        var exists = await _context.Clientes.AnyAsync(c => c.Documento == doc);
+        return exists;
     }
 }
