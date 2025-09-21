@@ -22,6 +22,7 @@ builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateClienteDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateClienteDtoValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 
