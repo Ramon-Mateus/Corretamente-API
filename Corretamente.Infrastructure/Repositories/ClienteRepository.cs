@@ -25,7 +25,7 @@ public class ClienteRepository : IClienteRepository
         return await _context.Clientes.ToListAsync();
     }
 
-    public async Task AddAsync(Cliente cliente)
+    public async Task CreateAsync(Cliente cliente)
     {
         await _context.Clientes.AddAsync(cliente);
         await _context.SaveChangesAsync();
