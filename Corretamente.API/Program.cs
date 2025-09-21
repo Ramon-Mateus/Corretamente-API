@@ -3,6 +3,7 @@ using Corretamente.Application.Common.Mappings;
 using Corretamente.Application.Interfaces.Services;
 using Corretamente.Application.Services;
 using Corretamente.Application.Validators.Cliente;
+using Corretamente.Application.Validators.Imovel;
 using Corretamente.Domain.Interfaces.Repositories;
 using Corretamente.Infrastructure.Contexts;
 using Corretamente.Infrastructure.Repositories;
@@ -20,9 +21,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IImovelService, ImovelService>();
+builder.Services.AddScoped<IImovelRepository, ImovelRepository>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateClienteDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateClienteDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateImovelDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateImovelDtoValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 

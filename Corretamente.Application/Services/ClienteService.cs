@@ -46,7 +46,7 @@ public class ClienteService : IClienteService
             throw new InvalidOperationException("Já existe um cliente com esse documento.");
 
         var cliente = _mapper.Map<Cliente>(clienteDto);
-        await _clienteRepository.AddAsync(cliente);
+        await _clienteRepository.CreateAsync(cliente);
         return _mapper.Map<ClienteDTO>(cliente);
     }
 

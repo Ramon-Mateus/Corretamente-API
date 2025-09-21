@@ -6,7 +6,7 @@ namespace Corretamente.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ClientesController : Controller
+public class ClientesController : ControllerBase
 {
     private readonly IClienteService _clienteService;
 
@@ -26,7 +26,7 @@ public class ClientesController : Controller
     public async Task<ActionResult<ClienteDTO>> GetById(int id)
     {
         var cliente = await _clienteService.GetByIdAsync(id);
-        if (cliente == null) return NotFound();
+        if (cliente == null) throw new KeyNotFoundException($"Cliente com ID {id} não foi encontrado.");
         return Ok(cliente);
     }
 
@@ -41,7 +41,7 @@ public class ClientesController : Controller
     public async Task<ActionResult<ClienteDTO>> Update(int id, UpdateClienteDTO clienteDto)
     {
         var updatedCliente = await _clienteService.UpdateAsync(id, clienteDto);
-        if (updatedCliente == null) return NotFound();
+        if (updatedCliente == null) throw new KeyNotFoundException($"Cliente com ID {id} não foi encontrado.");
         return Ok(updatedCliente);
     }
 
