@@ -6,6 +6,7 @@ using Corretamente.Application.Validators.Cliente;
 using Corretamente.Application.Validators.Imovel;
 using Corretamente.Domain.Interfaces.Repositories;
 using Corretamente.Infrastructure.Contexts;
+using Corretamente.Infrastructure.Pdf;
 using Corretamente.Infrastructure.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -19,11 +20,17 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Application Layer
 builder.Services.AddScoped<IClienteService, ClienteService>();
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IImovelService, ImovelService>();
-builder.Services.AddScoped<IImovelRepository, ImovelRepository>();
+builder.Services.AddScoped<IReciboLocacaoService, ReciboLocacaoService>();
 
+// Infrastructure Layer
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IImovelRepository, ImovelRepository>();
+builder.Services.AddScoped<IReciboLocacaoGenerator, QuestPdfReciboGenerator>();
+
+// Fluent Validation
 builder.Services.AddValidatorsFromAssemblyContaining<CreateClienteDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateClienteDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateImovelDtoValidator>();
