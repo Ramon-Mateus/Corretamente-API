@@ -21,7 +21,10 @@ namespace Corretamente.Infrastructure.Repositories
 
         public async Task<Imovel?> GetByIdAsync(int id)
         {
-            return await _context.Imoveis.FindAsync(id);
+            return await _context.Imoveis
+                .Include(i => i.Locatario)
+                .Include(i => i.Proprietario)
+                .FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<IEnumerable<Imovel>> GetAllAsync()

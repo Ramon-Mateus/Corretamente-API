@@ -46,10 +46,6 @@ public class ApplicationDbContext : DbContext
         {
             entity.HasKey(e => e.Id);
 
-            entity.Property(e => e.Nome)
-                .IsRequired()
-                .HasMaxLength(100);
-
             entity.Property(e => e.Valor)
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
@@ -70,10 +66,17 @@ public class ApplicationDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(9);
 
-            entity.HasOne(e => e.Locatario)
-                .WithMany(e => e.Imoveis)
-                .HasForeignKey(e => e.LocatarioId)
-                .OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(imovel => imovel.Proprietario)
+              .WithMany(cliente => cliente.ImoveisProprios)
+              .HasForeignKey(imovel => imovel.ProprietarioId)
+              .IsRequired()
+              .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(imovel => imovel.Locatario)
+                  .WithMany(cliente => cliente.ImoveisAlugados)
+                  .HasForeignKey(imovel => imovel.LocatarioId)
+                  .IsRequired(false)
+                  .OnDelete(DeleteBehavior.SetNull);
         });
     }
 

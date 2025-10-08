@@ -37,6 +37,9 @@ namespace Corretamente.Infrastructure.Pdf
 
         public void Compose(IDocumentContainer container)
         {
+            var PagadorCpfOrCnpjLabel = _data.PagadorIsPessoaJuridica ? "CNPJ" : "CPF";
+            var EmitenteCpfOrCnpjLabel = _data.EmitenteIsPessoaJuridica ? "CNPJ" : "CPF";
+
             container.Page(page =>
             {
                 // Configurações da página
@@ -66,13 +69,13 @@ namespace Corretamente.Infrastructure.Pdf
                         text.DefaultTextStyle(x => x.LineHeight(1.5f));
                         text.Justify();
 
-                        text.Span("Recebi da Sra. ");
+                        text.Span("Recebi do Sr. ");
                         text.Span($"{_data.PagadorNome}, ").Bold();
-                        text.Span("INSCRITA NO ");
-                        text.Span($"CNPJ Nº {_data.PagadorCnpj}, ").Bold();
+                        text.Span("INSCRITO NO ");
+                        text.Span($"{PagadorCpfOrCnpjLabel} Nº {_data.PagadorDocumento}, ").Bold();
                         text.Span($"o valor de R$ {_data.Valor:N2} ({_data.ValorPorExtenso}), ");
                         text.Span($"referente à {_data.ReferenteA}, ");
-                        text.Span($"com vencimento em {_data.DataVencimento:dd 'de' MMMM 'de' yyyy}, ");
+                        text.Span($"com vencimento em {_data.DataVencimento.ToString("dd 'de' MMMM 'de' yyyy", new CultureInfo("pt-BR"))}, ");
                         text.Span("pelo que assino o presente recibo, dando plena e total quitação.");
                     });
 
@@ -94,7 +97,7 @@ namespace Corretamente.Infrastructure.Pdf
                         signatureColumn.Item().Text(_data.EmitenteNome).SemiBold();
 
                         // CNPJ do emitente
-                        signatureColumn.Item().Text($"CNPJ {_data.EmitenteCnpj}");
+                        signatureColumn.Item().Text($"{EmitenteCpfOrCnpjLabel} {_data.EmitenteDocumento}");
                     });
                 });
             });
