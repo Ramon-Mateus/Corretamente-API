@@ -29,7 +29,10 @@ namespace Corretamente.Infrastructure.Repositories
 
         public async Task<IEnumerable<Imovel>> GetAllAsync()
         {
-            return await _context.Imoveis.ToListAsync();
+            return await _context.Imoveis
+                .Include(i => i.Locatario)  
+                .Include(i => i.Proprietario)
+                .ToListAsync();
         }
 
         public async Task CreateAsync(Imovel imovel)

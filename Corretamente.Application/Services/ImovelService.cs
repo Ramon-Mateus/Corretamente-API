@@ -40,6 +40,7 @@ namespace Corretamente.Application.Services
         public async Task<ImovelDTO> CreateAsync(CreateImovelDTO imovelDto)
         {
             await VerificarClienteExistente(imovelDto.LocatarioId);
+            await VerificarClienteExistente(imovelDto.ProprietarioId);
 
             var imovel = _mapper.Map<Imovel>(imovelDto);
             await _imovelRepository.CreateAsync(imovel);
@@ -51,6 +52,7 @@ namespace Corretamente.Application.Services
             var existingImovel = await _imovelRepository.GetByIdAsync(id);
 
             await VerificarClienteExistente(imovelDto.LocatarioId);
+            await VerificarClienteExistente(imovelDto.ProprietarioId);
 
             if (existingImovel == null) return null;
 

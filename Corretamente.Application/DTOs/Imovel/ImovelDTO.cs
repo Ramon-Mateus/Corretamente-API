@@ -13,6 +13,6 @@ namespace Corretamente.Application.DTOs.Imovel
         public string Estado { get; set; } = string.Empty;
         public string Cep { get; set; } = string.Empty;
         public ClienteDTO? Locatario { get; set; }
-        public ClienteDTO Proprietario { get; set; } = null!;
+        public ClienteDTO Proprietario { get; set; }
     }
 }

@@ -8,13 +8,14 @@ Para criar as tabelas iniciais e aplicar as migrations no banco de dados, utiliz
 
 ```shell
 # Criar a migration inicial
-dotnet ef migrations add CreateInitialTables \
-  --project Corretamente.Infrastructure \
-  --startup-project Corretamente.API \
-  --output-dir Contexts/Migrations
+dotnet ef migrations add CreateInitialTables --project Corretamente.Infrastructure --startup-project Corretamente.API --output-dir Contexts/Migrations
 
 # Aplicar as migrations no banco
-dotnet ef database update \
-  --project Corretamente.Infrastructure \
-  --startup-project Corretamente.API
+dotnet ef database update --project Corretamente.Infrastructure --startup-project Corretamente.API
+```
+
+### Docker Sql Server
+
+```shell
+  docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=SenhaForte#123" -p 1433:1433 --name sql-server-dev -d mcr.microsoft.com/mssql/server:2022-latest
 ```

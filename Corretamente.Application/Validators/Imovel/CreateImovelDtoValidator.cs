@@ -7,10 +7,6 @@ namespace Corretamente.Application.Validators.Imovel
     {
         public CreateImovelDtoValidator()
         {
-            RuleFor(x => x.Nome)
-                .NotEmpty().WithMessage("O nome é obrigatório.")
-                .MaximumLength(100).WithMessage("O nome deve ter no máximo 100 caracteres.");
-
             RuleFor(x => x.Valor)
                 .GreaterThan(0).WithMessage("O valor deve ser maior que zero.");
 
